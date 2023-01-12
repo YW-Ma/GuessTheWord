@@ -25,6 +25,11 @@ Getting Started
 1. Download and run the app.
 
 
+Architecture
+-------------
+[doc](https://developer.android.com/codelabs/kotlin-android-training-live-data-data-binding?index=..%2F..android-kotlin-fundamentals#3)
+![architecture](https://developer.android.com/static/codelabs/kotlin-android-training-live-data-data-binding/img/60e1a407f9abc2bc_960.png)
+
 License
 -------
 
