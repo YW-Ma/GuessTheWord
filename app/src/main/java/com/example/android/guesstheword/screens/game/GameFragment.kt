@@ -45,7 +45,7 @@ class GameFragment : Fragment() {
         // every time the fragment is re-created.
         // Instead, create the ViewModel instance using a ViewModelProvider!!!
         Log.i("GameFragment", "Called ViewModelProvider.get")
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(GameViewModel::class.java) // can pass a factory to provider, in order to customize the content of created view model.
 
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
