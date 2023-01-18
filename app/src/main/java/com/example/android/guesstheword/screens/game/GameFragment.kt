@@ -73,7 +73,7 @@ class GameFragment : Fragment() {
     }
 
     /** the onEndGame method will be called when the user taps the End Game button */
-    // The code I added has introduced a lifecycle issue.
+    // The code I added had introduced a lifecycle issue.
     // Now the gameFinished will be triggered when recreate the view.
 
     // Reason: When the game fragment is re-created after a screen rotation, it moves from an
@@ -81,13 +81,13 @@ class GameFragment : Fragment() {
     // ViewModel and receives the current data. The gameFinished() method is re-triggered, and the
     // toast displays.
 
-    // Solution: Add an onGameFinishComplete to set it to false after trigger the toast.
+    // Solution: Add an onGameFinishComplete to set it to false after trigger the toast!!!
     private fun onEndGame() {
         gameFinished()
     }
     private fun gameFinished() {
         Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
-        val action = GameFragmentDirections.actionGameToScore() // <-- these are commented to expose the problem.
+        val action = GameFragmentDirections.actionGameToScore()
         action.score = viewModel.score.value ?: 0
         NavHostFragment.findNavController(this).navigate(action)
         viewModel.onGameFinishComplete() // this is the solution
