@@ -53,6 +53,10 @@ class GameFragment : Fragment() {
         viewModel.word.observe(viewLifecycleOwner, Observer { newWord ->
             binding.wordText.text = newWord
         })
+        // TODO: add observer that trigger the gameFinished()
+        viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isGameFinished ->
+            if (isGameFinished) gameFinished()
+        })
 
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
@@ -69,14 +73,24 @@ class GameFragment : Fragment() {
     }
 
     /** the onEndGame method will be called when the user taps the End Game button */
+    // The code I added has introduced a lifecycle issue.
+    // Now the gameFinished will be triggered when recreate the view.
+
+    // Reason: When the game fragment is re-created after a screen rotation, it moves from an
+    // inactive to an active state. The observer in the fragment is re-connected to the existing
+    // ViewModel and receives the current data. The gameFinished() method is re-triggered, and the
+    // toast displays.
+
+    // Solution: Add an onGameFinishComplete to set it to false after trigger the toast.
     private fun onEndGame() {
         gameFinished()
     }
     private fun gameFinished() {
         Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
-        val action = GameFragmentDirections.actionGameToScore()
-        action.score = viewModel.score.value ?: 0
-        NavHostFragment.findNavController(this).navigate(action)
+        // val action = GameFragmentDirections.actionGameToScore() // <-- these are commented to expose the problem.
+        // action.score = viewModel.score.value ?: 0
+        // NavHostFragment.findNavController(this).navigate(action)
+        viewModel.onGameFinishComplete() // this is the solution
     }
 
     /** Methods for buttons presses **/
