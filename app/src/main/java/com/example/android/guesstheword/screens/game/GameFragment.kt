@@ -68,7 +68,7 @@ class GameFragment : Fragment() {
 
         binding.correctButton.setOnClickListener { onCorrect() }
         binding.skipButton.setOnClickListener { onSkip() }
-        binding.endGameButton.setOnClickListener( {unused -> onEndGame()} )
+        binding.endGameButton.setOnClickListener( {_ -> onEndGame()} )
         return binding.root
     }
 
