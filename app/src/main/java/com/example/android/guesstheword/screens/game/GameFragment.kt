@@ -53,7 +53,7 @@ class GameFragment : Fragment() {
         viewModel.word.observe(viewLifecycleOwner, Observer { newWord ->
             binding.wordText.text = newWord
         })
-        // TODO: add observer that trigger the gameFinished()
+        // This observer will have the issue described before `onEndGame()`, since the isGameFinished is still true after a screen rotation.
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { isGameFinished ->
             if (isGameFinished) gameFinished()
         })
